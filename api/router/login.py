@@ -8,7 +8,6 @@ from core.domains import login
 router = APIRouter(prefix="/api/login")
 
 @router.post("")
-@router.post("/")
 def post(dto: DTO):
     
     return login.authenticate(dto)

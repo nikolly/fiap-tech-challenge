@@ -14,7 +14,6 @@ from core.functions.functions import load_users_from_json
 load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 class Auth:
@@ -26,7 +25,7 @@ class Auth:
         to_encode = data.copy()
         expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         to_encode.update({"exp": expire})
-        encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+        encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm="HS256")
         
         return encoded_jwt
 
@@ -43,7 +42,7 @@ class Auth:
             headers={"WWW-Authenticate": "Bearer"},
         )
         try:
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
             username: str = payload.get("sub")
             if username is None:
                 raise credentials_exception

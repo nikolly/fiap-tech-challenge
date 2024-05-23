@@ -1,49 +1,51 @@
-import pandas as pd
-from core.functions.functions import config_selenium, get_csv
-import sqlite3
+from sqlalchemy.exc import SQLAlchemyError
+from fastapi.responses import JSONResponse
+from core.functions.functions import config_selenium, get_link_csv, prepare_data, insert_data, normalize_product_names
 from fastapi import HTTPException
+from sqlalchemy import MetaData
+from connection.database import connect_database
 
 
-def get_data():
-    driver=config_selenium()
-    
-    # csv_production = get_csv(driver,'02')
-    
-    # csv_processing_vinifera = get_csv(driver,'03')
-    # csv_processing_american_and_hybrid = get_csv(driver,'03','02')
-    # csv_processing_table_grapes = get_csv(driver,'03','03')
-    # csv_processing_unclassified = get_csv(driver,'03','04')
-    
-    csv_sales = get_csv(driver,'04')
-    
-    # csv_import_table_wines = get_csv(driver,'05')
-    # csv_import_sparkling_wines = get_csv(driver,'05', '02')
-    # csv_import_fresh_grapes = get_csv(driver,'05', '03')
-    # csv_import_raisins = get_csv(driver,'05', '04')
-    # csv_import_grape_juice = get_csv(driver,'05', '05')
-    
-    # csv_export_table_grapes = get_csv(driver,'06')
-    # csv_export_sparkling_wines = get_csv(driver,'06', '02')
-    # csv_export_fresh_grapes = get_csv(driver,'06', '03')
-    # csv_export_grape_juice = get_csv(driver,'06', '04')
-        
-    driver.quit()
+def process_data(category: str, sub_category: str = None):
+    # Connecting to database
+    engine, session = connect_database()
     
     try:
-        df = pd.read_csv(csv_sales, sep='\t')
-    except Exception as e:
-        print(e)
-        raise HTTPException(status_code=500, detail=("An error occurred while reading the data."))
+        # Retrieve the defined tables
+        metadata = MetaData(bind=engine)
+        metadata.reflect(bind=engine)
+        md_product = metadata.tables['product']
+        md_quantities = metadata.tables['quantities']
+    except KeyError as e:
+        print(str(e))
+        raise HTTPException(status_code=500, detail="Error retrieving tables from the database")
     
-    for item in df:
-        print(item)
+    # Configuring Selenium and retrieving data from a CSV file
+    driver = config_selenium()
+    separator = '\t' if category == '03' else ';'
+    df_production = prepare_data(get_link_csv(driver,category, sub_category), separator)
+    driver.quit()
+
+    for index, row in df_production.iterrows():
+        # Calling the insert_data function to save product and its quantities in database
+        insert_data(session, md_product, md_quantities, row)
     
-    # Conectar ao banco de dados SQLite
-    # conn = sqlite3.connect('dados.db')
-
-    # # Salvar o DataFrame no banco de dados SQLite
-    # df.to_sql('tabela_dados', conn, if_exists='replace', index=False)
-
-    # # Fechar a conexão com o banco de dados
-    # conn.close()
-    return df
+    try:
+        session.commit()
+    except SQLAlchemyError as e:
+        print(f"Error committing transaction: {str(e)}")
+        session.rollback()
+        raise HTTPException(status_code=500, detail="Error saving data to the database")
+                
+    session.commit()
+    session.close()
+    
+    # Changing the index to improve the data output
+    if 'control' in df_production.columns:
+        df_production.set_index('control', inplace=True)
+           
+    # Returning the data in JSON format
+    return JSONResponse(content=df_production.to_dict(orient='index'), 
+                        status_code=200, 
+                        headers={"Content-Type": "application/json"})
+    
