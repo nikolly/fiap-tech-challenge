@@ -2,7 +2,6 @@ from fastapi import FastAPI
 
 import api.router as router
 from connection.database import create_tables
-from sqlalchemy import create_engine, Table, MetaData
 from sqlalchemy import create_engine
 
 

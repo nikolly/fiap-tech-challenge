@@ -53,27 +53,27 @@ def create_tables(engine):
         Column('farming_item', TEXT, ForeignKey('farming_items.name'), nullable=True),
         Column('year', Integer),
         Column('quantity', Integer),
+        Column('category', String),
         Column('subcategory', String),
         Column('dtcriation', Date, default='CURRENT_DATE'),
-        UniqueConstraint('product', 'year', name='uq_product_year'),
+        UniqueConstraint('product', 'year', 'category', name='uq_product_year_category'),
         UniqueConstraint('farming_item', 'year', 'subcategory', name='uq_farming_item_year_subcategory')
     )
 
     country = Table('country', metadata,
-        Column('id', TEXT, primary_key=True, default=lambda: str(uuid.uuid4())),
-        Column('name', String, unique=True),
+        Column('name', String, primary_key=True),
         Column('dtcriation', Date, default='CURRENT_DATE')
     )
 
     importation_exportation = Table('importation_exportation', metadata,
         Column('id', TEXT, primary_key=True, default=lambda: str(uuid.uuid4())),
-        Column('id_country', TEXT, ForeignKey('country.id')),
+        Column('country', TEXT, ForeignKey('country.name')),
         Column('year', Integer),
         Column('value', Integer),
         Column('category', String),
         Column('subcategory', String),
         Column('dtcriation', Date, default='CURRENT_DATE'),
-        UniqueConstraint('id_country', 'year', 'category')
+        UniqueConstraint('country', 'year', 'category', 'subcategory', name='uq_country_year_category_subcategory')
     )
 
     # Criar todas as tabelas no banco de dados

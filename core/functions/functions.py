@@ -61,65 +61,123 @@ def get_link_csv(driver, category, sub_option=None):
     return link_download
 
 
-def prepare_data(link_csv, separator=';'):
-    column_names = ["id", "control", "produto"] + [str(year) for year in range(1970, 2023)]
+import pandas as pd
+
+def prepare_data(link_csv, separator=';', use_name_normalization=True):
+    """
+    Prepare the data from a CSV file for further analysis.
+
+    Args:
+        link_csv (str): The path or URL to the CSV file.
+        separator (str, optional): The separator used in the CSV file. Defaults to ';'.
+
+    Returns:
+        pandas.DataFrame: The prepared DataFrame.
+
+    """
+    # Read the CSV file into a DataFrame
     df = pd.read_csv(link_csv, sep=separator, dtype=str)
-    if 'cultivar' in df.columns:
-        df.rename(columns={'cultivar': 'produto'}, inplace=True)
     
+    # Convert column names to lowercase
     df.columns = [col.lower() for col in df.columns]
     
+    # Rename the 'cultivar' and 'país' column to 'produto' if it exists
+    if 'cultivar' in df.columns:
+        df.rename(columns={'cultivar': 'produto'}, inplace=True)
+    if 'país' in df.columns:
+        df.rename(columns={'país': 'control'}, inplace=True)
+    
+    # Convert 'produto' column to string type
     if 'produto' in df.columns:
         df['produto'] = df['produto'].astype(str)
 
+    # If 'id' column is missing, read the CSV file again with specified column names
     if not 'id' in df.columns.values:
-        df = pd.read_csv(link_csv, sep=separator, names=column_names)
-
-    
+        return 'not id++++++++++++========================='
+        # column_names = ["id", "control", "produto"] + [str(year) for year in range(1970, 2023)]
+        # df = pd.read_csv(link_csv, sep=separator, names=column_names)
 
     for col in df.columns:
         if col.isdigit():
+            # updating nan values to 0
             df[col] = pd.to_numeric(df[col], errors='coerce').fillna(0).astype('int')
     
-    df = normalize_product_names(df)
+    # Normalize product names
+    if use_name_normalization:
+        df = normalize_product_names(df)
     
     return df
 
 
-def insert_data(session, md_product, md_quantities, row):
+def insert_data(session, md_header, md_quantities, row, category, subcategory):
     # Inserting product into the 'product' table
-    product_insert = insert(md_product).values(name=row['control']).on_conflict_do_nothing(index_elements=['name'])
-    print(f"Inserting product: {row['produto']}")
+    product_insert = insert(md_header).values(name=row['control']).on_conflict_do_nothing(index_elements=['name'])
+    print(f"Inserting header: {row['control']}")
         
     try:
         result = session.execute(product_insert)
     except SQLAlchemyError as e:
         print(f"Error inserting product: {str(e)}")
         session.rollback()
-        raise HTTPException(status_code=500, detail="Error inserting product into the database")
+        raise HTTPException(status_code=500, detail="Error inserting the category into the database")
     
     year_columns = [col for col in row.index if col.isdigit()]
-    for year in year_columns:
-        if pd.notna(row[str(year)]):
-            # Inserting quantities from product into the 'quantities' table
-            stmt = insert(md_quantities).values(
+    if category == '05' or category == '06':
+        for year in year_columns:
+            insert_imp_exp(session, md_quantities, row, category, subcategory, year)
+    else:
+        for year in year_columns:
+            insert_quantity(session, md_quantities, row, category, subcategory, year)
+            
+
+def insert_imp_exp(session, md_quantities, row, category, subcategory, year):
+    if pd.notna(row[str(year)]):
+        # Inserting values from importation/exportation into the 'importation_exportation' table
+        stmt = insert(md_quantities).values(
+                    id=str(uuid4()), 
+                    country=row['control'],
+                    year=year,
+                    value=row[str(year)],
+                    category=category,
+                    subcategory=subcategory,
+                )
+        stmt = stmt.on_conflict_do_update(
+                    index_elements=['country', 'year', 'category', 'subcategory'],
+                    set_=dict(value=row[str(year)], dtcriation=date.today())
+                )
+        print(f"Inserting value: {row[str(year)]} for the year {year}, country {row['control']}")
+                
+        try:
+            session.execute(stmt)
+        except SQLAlchemyError as e:
+            print(f"Error inserting quantity: {str(e)}")
+            session.rollback()
+            raise HTTPException(status_code=500, detail=f"Error inserting quantities from {row['produto']} into the database")
+    
+               
+def insert_quantity(session, md_quantities, row, category, subcategory, year):
+    if pd.notna(row[str(year)]):
+        # Inserting quantities from product into the 'quantities' table
+        stmt = insert(md_quantities).values(
                     id=str(uuid4()), 
                     product=row['control'],
                     year=year,
                     quantity=row[str(year)],
+                    category=category,
+                    subcategory=subcategory,
                 )
-            stmt = stmt.on_conflict_do_update(
-                    index_elements=['product', 'year'],
+        stmt = stmt.on_conflict_do_update(
+                    index_elements=['farming_item', 'year', 'subcategory'] if category == '03' else ['product', 'year', 'category'],
                     set_=dict(quantity=row[str(year)], dtcriation=date.today())
                 )
-            print(f"Inserting quantity: {row[str(year)]} for the year {year}, product {row['produto']}")
+        print(f"Inserting quantity: {row[str(year)]} for the year {year}, product {row['produto']}")
                 
-            try:
-                session.execute(stmt)
-            except SQLAlchemyError as e:
-                print(f"Error inserting quantity: {str(e)}")
-                session.rollback()
-                raise HTTPException(status_code=500, detail=f"Error inserting quantities from {row['produto']} into the database")
+        try:
+            session.execute(stmt)
+        except SQLAlchemyError as e:
+            print(f"Error inserting quantity: {str(e)}")
+            session.rollback()
+            raise HTTPException(status_code=500, detail=f"Error inserting quantities from {row['produto']} into the database")
 
 
 def normalize_product_names(df: pd.DataFrame):
