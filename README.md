@@ -32,7 +32,7 @@ This is the documentation for the Embrapa project API, which includes endpoints 
 ## Usage
 
 1. Start the application: `./run.sh`
-2. Open your browser and go to `http://localhost:8000/embrapa/production`
+2. Open your browser and go to `http://localhost:8000/api/embrapa/production`
 
 ## Docs
 
