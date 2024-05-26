@@ -11,6 +11,7 @@ from uuid import uuid4
 from fastapi import HTTPException
 from datetime import date
 from sqlalchemy.dialects.sqlite import insert
+from sqlalchemy import MetaData
 
 
 def config_selenium():
@@ -27,7 +28,7 @@ def config_selenium():
         return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     except Exception as e:
         print(f"Error configuring Selenium: {str(e)}")
-        return None
+        raise HTTPException(status_code=500, detail="Error configuring Selenium")
 
 
 def get_link_csv(driver, category, sub_option=None):
@@ -61,8 +62,6 @@ def get_link_csv(driver, category, sub_option=None):
     return link_download
 
 
-import pandas as pd
-
 def prepare_data(link_csv, separator=';', use_name_normalization=True):
     """
     Prepare the data from a CSV file for further analysis.
@@ -90,12 +89,6 @@ def prepare_data(link_csv, separator=';', use_name_normalization=True):
     # Convert 'produto' column to string type
     if 'produto' in df.columns:
         df['produto'] = df['produto'].astype(str)
-
-    # If 'id' column is missing, read the CSV file again with specified column names
-    if not 'id' in df.columns.values:
-        return 'not id++++++++++++========================='
-        # column_names = ["id", "control", "produto"] + [str(year) for year in range(1970, 2023)]
-        # df = pd.read_csv(link_csv, sep=separator, names=column_names)
 
     for col in df.columns:
         if col.isdigit():
@@ -237,8 +230,36 @@ def load_users_from_json(file_path):
         return users_data
     except FileNotFoundError:
         print(f"File not found: {file_path}")
-        return None
+        raise HTTPException(status_code=500, detail=f"Error retrieving user's data")
     except json.JSONDecodeError:
         print(f"Invalid JSON file: {file_path}")
-        return None
-    
+        raise HTTPException(status_code=500, detail=f"Error retrieving user's data")
+
+
+def get_metadata_and_tables(engine, category):
+    """
+    Retrieves metadata and tables based on the given engine and category.
+
+    Args:
+        engine (sqlalchemy.engine.Engine): The SQLAlchemy engine object.
+        category (str): The category value used to determine the tables to retrieve.
+
+    Returns:
+        tuple: A tuple containing the metadata, md_header, and md_quantities tables.
+
+    Raises:
+        KeyError: If the category value does not match any of the predefined cases.
+
+    """
+    metadata = MetaData(bind=engine)
+    metadata.reflect(bind=engine)
+    if category == '03':
+        md_header = metadata.tables['farming_items']
+        md_quantities = metadata.tables['quantities']
+    elif category in ['05', '06']:
+        md_header = metadata.tables['country']
+        md_quantities = metadata.tables['importation_exportation']
+    else:
+        md_header = metadata.tables['product']
+        md_quantities = metadata.tables['quantities']
+    return metadata, md_header, md_quantities

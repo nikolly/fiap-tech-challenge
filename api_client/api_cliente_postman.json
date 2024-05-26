@@ -1,0 +1,231 @@
+{
+  "info": {
+    "name": "FIAP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "bruno",
+      "event": []
+    },
+    {
+      "name": "DOCS",
+      "item": [
+        {
+          "name": "swagger",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{url_doc}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "EMBRAPA",
+      "item": [
+        {
+          "name": "EXPORTATION",
+          "item": [
+            {
+              "name": "get fresh grapes data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/exportation/freshGrapes"
+              }
+            },
+            {
+              "name": "get grape juice data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/exportation/grapeJuice"
+              }
+            },
+            {
+              "name": "get sparkling wines data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/exportation/sparklingWines"
+              }
+            },
+            {
+              "name": "get table grapes data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/exportation/tableGrapes"
+              }
+            }
+          ]
+        },
+        {
+          "name": "IMPORTATION",
+          "item": [
+            {
+              "name": "get fresh grapes data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/importation/freshGrapes"
+              }
+            },
+            {
+              "name": "get grape juice data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/importation/grapeJuice"
+              }
+            },
+            {
+              "name": "get raisins data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/importation/raisins"
+              }
+            },
+            {
+              "name": "get sparkling wines data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/importation/sparklingWines"
+              }
+            },
+            {
+              "name": "get table grapes data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/importation/tableGrapes"
+              }
+            }
+          ]
+        },
+        {
+          "name": "PROCESSING",
+          "item": [
+            {
+              "name": "get american and hybrid data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/processing/americanAndHybrid"
+              }
+            },
+            {
+              "name": "get no classification data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/processing/noClassification"
+              }
+            },
+            {
+              "name": "get table grapes data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/processing/tableGrapes"
+              }
+            },
+            {
+              "name": "get vinifera data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/processing/vinifera"
+              }
+            }
+          ]
+        },
+        {
+          "name": "PRODUCTION",
+          "item": [
+            {
+              "name": "get production data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/production"
+              }
+            }
+          ]
+        },
+        {
+          "name": "SALES",
+          "item": [
+            {
+              "name": "get sales data",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": "{{url_base}}embrapa/sales"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "LOGIN",
+      "item": [
+        {
+          "name": "authenticate",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{url_base}}login/",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"fiap\",\n  \"password\": \"fakehashedpassword\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "url_doc",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "url_base",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

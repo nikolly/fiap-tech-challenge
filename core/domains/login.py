@@ -1,5 +1,7 @@
 from fastapi import HTTPException, status
 from security.auth import Auth
+from fastapi.responses import JSONResponse
+from models.login import ApiResponse
 
 
 auth = Auth()
@@ -15,5 +17,7 @@ def authenticate(dto):
         
     access_token = auth.create_access_token(data={"sub": user["username"]})
     
-    return {"access_token": access_token, "token_type": "bearer"}
+    response_data = ApiResponse(token=access_token, token_type="bearer")
+    
+    return JSONResponse(content=response_data.model_dump(), status_code=200, headers={"Content-Type": "application/json"})
     

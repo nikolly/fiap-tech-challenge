@@ -1,0 +1,600 @@
+{
+  "name": "FIAP",
+  "version": "1",
+  "items": [
+    {
+      "type": "json",
+      "name": "bruno",
+      "seq": 1
+    },
+    {
+      "type": "folder",
+      "name": "DOCS",
+      "items": [
+        {
+          "type": "http",
+          "name": "swagger",
+          "seq": 1,
+          "request": {
+            "url": "{{url_doc}}",
+            "method": "GET",
+            "headers": [],
+            "body": {
+              "mode": "none",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {},
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "EMBRAPA",
+      "items": [
+        {
+          "type": "folder",
+          "name": "EXPORTATION",
+          "items": [
+            {
+              "type": "http",
+              "name": "get fresh grapes data",
+              "seq": 2,
+              "request": {
+                "url": "{{url_base}}embrapa/exportation/freshGrapes",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get grape juice data",
+              "seq": 4,
+              "request": {
+                "url": "{{url_base}}embrapa/exportation/grapeJuice",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get sparkling wines data",
+              "seq": 1,
+              "request": {
+                "url": "{{url_base}}embrapa/exportation/sparklingWines",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get table grapes data",
+              "seq": 3,
+              "request": {
+                "url": "{{url_base}}embrapa/exportation/tableGrapes",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "name": "IMPORTATION",
+          "items": [
+            {
+              "type": "http",
+              "name": "get fresh grapes data",
+              "seq": 2,
+              "request": {
+                "url": "{{url_base}}embrapa/importation/freshGrapes",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get grape juice data",
+              "seq": 4,
+              "request": {
+                "url": "{{url_base}}embrapa/importation/grapeJuice",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get raisins data",
+              "seq": 5,
+              "request": {
+                "url": "{{url_base}}embrapa/importation/raisins",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get sparkling wines data",
+              "seq": 1,
+              "request": {
+                "url": "{{url_base}}embrapa/importation/sparklingWines",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get table grapes data",
+              "seq": 3,
+              "request": {
+                "url": "{{url_base}}embrapa/importation/tableGrapes",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "name": "PROCESSING",
+          "items": [
+            {
+              "type": "http",
+              "name": "get american and hybrid data",
+              "seq": 2,
+              "request": {
+                "url": "{{url_base}}embrapa/processing/americanAndHybrid",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get no classification data",
+              "seq": 4,
+              "request": {
+                "url": "{{url_base}}embrapa/processing/noClassification",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get table grapes data",
+              "seq": 3,
+              "request": {
+                "url": "{{url_base}}embrapa/processing/tableGrapes",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            },
+            {
+              "type": "http",
+              "name": "get vinifera data",
+              "seq": 1,
+              "request": {
+                "url": "{{url_base}}embrapa/processing/vinifera",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "name": "PRODUCTION",
+          "items": [
+            {
+              "type": "http",
+              "name": "get production data",
+              "seq": 1,
+              "request": {
+                "url": "{{url_base}}embrapa/production",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "folder",
+          "name": "SALES",
+          "items": [
+            {
+              "type": "http",
+              "name": "get sales data",
+              "seq": 1,
+              "request": {
+                "url": "{{url_base}}embrapa/sales",
+                "method": "POST",
+                "headers": [],
+                "body": {
+                  "mode": "none",
+                  "formUrlEncoded": [],
+                  "multipartForm": []
+                },
+                "auth": {
+                  "mode": "bearer",
+                  "basic": {
+                    "username": "",
+                    "password": ""
+                  },
+                  "bearer": {
+                    "token": "{{token}}"
+                  }
+                },
+                "script": {},
+                "vars": {},
+                "assertions": [],
+                "tests": "",
+                "query": []
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "folder",
+      "name": "LOGIN",
+      "items": [
+        {
+          "type": "http",
+          "name": "authenticate",
+          "seq": 1,
+          "request": {
+            "url": "{{url_base}}login/",
+            "method": "POST",
+            "headers": [],
+            "body": {
+              "mode": "json",
+              "json": "{\n  \"username\": \"fiap\",\n  \"password\": \"fakehashedpassword\"\n}",
+              "formUrlEncoded": [],
+              "multipartForm": []
+            },
+            "auth": {
+              "mode": "none",
+              "basic": {
+                "username": "",
+                "password": ""
+              },
+              "bearer": {
+                "token": ""
+              }
+            },
+            "script": {},
+            "vars": {
+              "res": [
+                {
+                  "name": "token",
+                  "value": "res.body.access_token",
+                  "enabled": true,
+                  "local": false
+                }
+              ]
+            },
+            "assertions": [],
+            "tests": "",
+            "query": []
+          }
+        }
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "variables": [
+        {
+          "name": "url_base",
+          "value": "http://127.0.0.1:8000/api/",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        },
+        {
+          "name": "url_doc",
+          "value": "http://127.0.0.1:8000/openapi.json",
+          "enabled": true,
+          "secret": false,
+          "type": "text"
+        }
+      ],
+      "name": "FIAP"
+    }
+  ]
+}
