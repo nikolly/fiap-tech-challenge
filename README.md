@@ -7,12 +7,12 @@ This is the documentation for the Embrapa project API, which includes endpoints 
 - [Embrapa API](#embrapa-api)
   - [Índice](#índice)
   - [Installation](#installation)
-  - [Usage](#usage)
   - [Docs](#docs)
   - [API Client](#api-client)
-  - [Tests](#tests)
   - [Authentication](#authentication)
     - [Obtaining Token JWT](#obtaining-token-jwt)
+  - [Usage](#usage)
+  - [Tests](#tests)
   - [Api Routes](#api-routes)
     - [Production](#production)
     - [Sales](#sales)
@@ -29,11 +29,6 @@ This is the documentation for the Embrapa project API, which includes endpoints 
                                  `.venv\Scripts\activate`  # Windows
 5. Install the dependencies: `pip install -r requirements.txt`
 
-## Usage
-
-1. Start the application: `./run.sh`
-2. Open your browser and go to `http://localhost:8000/api/embrapa/production`
-
 ## Docs
 
 1. Open your browser and go to `http://localhost:8000/docs` to find the API documentation in OpenAPI
@@ -43,11 +38,6 @@ This is the documentation for the Embrapa project API, which includes endpoints 
 1. In the api_client folder there are some examples of requests prepared that you can use for interacting with the APIs.
 2. The platform chosen to prepare these requests was [Bruno](https://github.com/usebruno/bruno), you can import the requests from the file api_client_bruno.json to it.
 3. The project also contains a file that you can import in postman, its name is api_client_postman.json.
-
-## Tests
-
-We have tests prepared for the login API.
-To run the tests you can run in the terminal `pytest`.
 
 ## Authentication
 
@@ -63,6 +53,18 @@ Example of request to obtain the token:
   "username": "fiap",
   "password": "fakehashedpassword"
 }'`
+
+## Usage
+
+1. Start the application: `./run.sh`
+2. Use an API client (we suggest Bruno or Postman beacause in this project we add files to import collections of them) to login in in `http://localhost:8000/api/login` with the credentials
+  `username=fiap / password=fakehashedpassword`.
+3. Then, use the token that you got from the login and access `http://localhost:8000/api/embrapa/production`
+
+## Tests
+
+We have tests prepared for the login API.
+To run the tests you can run in the terminal `pytest`.
 
 ## Api Routes
 
