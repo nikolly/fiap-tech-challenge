@@ -1,6 +1,6 @@
 # Embrapa API
 
-Esta é a documentação da API do projeto Embrapa, que inclui endpoints para processamento de dados de produção, importação/exportação e mais.
+This is the documentation for the Embrapa project API, which includes endpoints for processing production data, import/export and more.
 
 ## Índice
 
