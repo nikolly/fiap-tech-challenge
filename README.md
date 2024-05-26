@@ -24,9 +24,9 @@ This is the documentation for the Embrapa project API, which includes endpoints 
 
 1. Clone the repository: `git clone https://github.com/your-username/fiap-tech-challenge.git`
 2. Navigate to the project directory: `cd fiap-tech-challenge`
-3. Run in terminal `python -m venv venv`
-4. Start the virtual environment `source venv/bin/activate`  # Linux/Mac
-                                 `venv\Scripts\activate`  # Windows
+3. Run in terminal `python -m venv .venv`
+4. Start the virtual environment `source .venv/bin/activate`  # Linux/Mac
+                                 `.venv\Scripts\activate`  # Windows
 5. Install the dependencies: `pip install -r requirements.txt`
 
 ## Usage
