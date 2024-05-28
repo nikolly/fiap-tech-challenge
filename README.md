@@ -32,6 +32,9 @@ This is the documentation for the Embrapa project API, which includes endpoints 
 ## Docs
 
 1. Open your browser and go to `http://localhost:8000/docs` to find the API documentation in OpenAPI
+2. In this project, there is a folder called diagrams that contains the architecture of the project, where there are two files
+    1. Component diagram
+    2. Detailed diagram and deployment diagram
 
 ## API Client
 
