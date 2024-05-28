@@ -1,6 +1,6 @@
 # Embrapa API
 
-This project is for Tech Challenge 1 of FIAP's Machine Learning Engineering Postgraduate Program.
+This project is for Tech Challenge of FIAP's Machine Learning Engineering Postgraduate Program.
 In this project, Embrapa's viticulture data is queried and persisted in a database with the aim of being used in a Machine Learning model in the future.
 
 ## Índice
@@ -42,8 +42,8 @@ In this project, Embrapa's viticulture data is queried and persisted in a databa
 
 You need to create a .env file in the root of the project with the necessary environment variables. Use the .env.example file as a template.
 Note: the values are the same, you don't need to change anything because it is just to simulate this situation.
-  1. cp .env.example .env   #Linux/Max
-  2. copy .env.example .env #Windows
+  1. `cp .env.example .env`   #Linux/Max
+  2. `copy .env.example .env` #Windows
 
 ## API Client
 
