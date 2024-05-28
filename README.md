@@ -116,7 +116,7 @@ Process table grapes data.
 `POST /api/embrapa/processing/noClassification`
 Process no classification data.
 
-### Exportação
+### Exportation
 
 `POST /api/embrapa/exportation/tableGrapes`
 Process table grapes data of exportation.
@@ -130,7 +130,7 @@ Process fresh grapes data of exportation.
 `POST /api/embrapa/exportation/grapeJuice`
 Process grape juice data of exportation.
 
-### Importação
+### Importation
 
 `POST /api/embrapa/importation/tableGrapes`
 Process table grapes data of importation.
