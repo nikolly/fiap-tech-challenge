@@ -2,3 +2,4 @@ Pontos de melhoria
 
 1. Dockerizar o projeto
 2. Aumentar a cobertura dos testes unitários
+3. Utilizar postgreSQL ao invés do SQLite
