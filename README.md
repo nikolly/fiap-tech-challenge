@@ -1,6 +1,7 @@
 # Embrapa API
 
-This is the documentation for the Embrapa project API, which includes endpoints for processing production data, import/export and more.
+This project is for Tech Challenge 1 of FIAP's Machine Learning Engineering Postgraduate Program. 
+In this project, Embrapa's viticulture data is queried and persisted in a database with the aim of being used in a Machine Learning model in the future.
 
 ## Índice
 
